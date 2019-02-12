@@ -28,14 +28,14 @@ After download simply un-zip the file and place the BMP280 directory in your _..
 
 ## __Usage__
 
-### __BMP280 Library Initialisation__
+### __BMP280 Library__
 
 Simply include the BMP280.h file at the beginning of your sketch:
 
 ```
 #include <BMP280.h>
 ```
----
+
 For I2C communicaiton the BMP280 object is created (instantiated) without parameters:
 
 ```
@@ -50,6 +50,8 @@ For SPI communication the chip select (CS) Arduino digital output pin is specifi
 BMP280 bmp280(10);	// Set up SPI communications on digital pin D10
 ```
 ---
+### __Device Initialisation__
+
 To initialise the bmp280 it is necessary to call the begin() function with or without parameters. The parameters specify the starting mode, pressure/temperature oversampling, IIR filter and standby time options respectively:
 
 ```
