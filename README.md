@@ -67,6 +67,8 @@ bmp280.begin();	// Initialise the BMP280 with default configuration
 The begin functions return the value 1 upon successful initialisation, otherwise it returns 0 for failure.
 
 ---
+### __Device Configuration__
+
 After initialisation it is possible to change the BMP280 configuration with the following functions:
 
 ```
@@ -136,7 +138,7 @@ bmp280.getPressure(pressure);	// Acquire the pressure only, (also calculates tem
 ```
 
 ```
-bmp280.getAltitude(altitude);	// Acquire the altitude
+bmp280.getAltitude(altitude);	// Acquire the altitude only
 ```
 ---
 ### __Code Implementation__
