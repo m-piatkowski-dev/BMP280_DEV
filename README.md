@@ -16,7 +16,7 @@ This fully featured BMP280 library offer the following features:
 
 ### __Arduino Compatibility__
 
-All Arduino boards
+- All Arduino boards, but check if the BMP280 breakout board requires a 5V to +3.3V voltage level shifter
 
 ### __Installation__
 
@@ -40,7 +40,7 @@ For SPI communication the chip select (CS) digital output pin is specified as an
 
 To initialise the bmp280 it is necessary to call the begin function with or without parameters. The parameters specify the starting mode, pressure and temperature oversampling, IIR filter and standby time options respectively:
 
-**_bmp280.begin(SLEEP_MODE, OVERSAMPLING_X16, OVERSAMPLING_X2, IIR_FILTER_4, TIME_STANDBY_05MS);
+**_bmp280.begin(SLEEP_MODE, OVERSAMPLING_X16, OVERSAMPLING_X2, IIR_FILTER_4, TIME_STANDBY_05MS);_**
 
 Alternatively the begin function can be called with BMP280's alternate I2C address,
 
