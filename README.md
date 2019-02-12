@@ -24,7 +24,7 @@ This BMP280 library offers the following features:
 
 ## __Installation__
 
-After download simply un-zip the file and place the BMP280 directory in your _.../Arduino/libraries/..._ folder. The _...Arduino/..._ folder is the one where your Arduino IDE sketches are usually located.
+After download simply un-zip the file and place the BMP280 directory in your _.../Arduino/libraries/..._ folder. The _.../Arduino/..._ folder is the one where your Arduino IDE sketches are usually located.
 
 ## __Usage__
 
@@ -50,7 +50,7 @@ For SPI communication the chip select (CS) Arduino digital output pin is specifi
 BMP280 bmp280(10);	// Set up SPI communications on digital pin D10
 ```
 
-To initialise the bmp280 it is necessary to call the begin function with or without parameters. The parameters specify the starting mode, pressure and temperature oversampling, IIR filter and standby time options respectively:
+To initialise the bmp280 it is necessary to call the begin() function with or without parameters. The parameters specify the starting mode, pressure/temperature oversampling, IIR filter and standby time options respectively:
 
 ```
 bmp280.begin(SLEEP_MODE, OVERSAMPLING_X16, OVERSAMPLING_X2, IIR_FILTER_4, TIME_STANDBY_05MS);
@@ -64,7 +64,7 @@ Another alternative is to simply call the begin function without any paremeters,
 bmp280.begin();	// Initialise the BMP280 with default configuration
 ```
 
-The begin functions also return the value 1 upon successful initialisation, otherwise it returns 0 for failure.
+The begin functions return the value 1 upon successful initialisation, otherwise it returns 0 for failure.
 
 After initialisation it is possible to change the BMP280 configuration with the following functions:
 
@@ -86,27 +86,27 @@ bmp280.setTimeStandby(TIME_STANDBY_2000MS);	// Options are TIME_STANDBY_05MS, _6
 
 ### __Modes Of Operation__
 
-The BMP280 has 3 modes of operation: SLEEP_MODE, NORMAL_MODE and FORCED_MODE: 
+The BMP280 has 3 modes of operation: **SLEEP_MODE**, **NORMAL_MODE** and **FORCED_MODE**: 
 
 - **SLEEP_MODE**: puts the device into an inactive standby state 
 
 - **NORMAL_MODE**: performs continuous conversions, separated by the standby time
 
-- **FORCED_MODE**: performs a single conversion, returning to SLEEP_MODE upon completion
+- **FORCED_MODE**: performs a single conversion, returning to **SLEEP_MODE** upon completion
 
-To kick-off conversions in NORMAL_MODE:
+To kick-off conversions in **NORMAL_MODE**:
 
 ```
 bmp280.startNormalConversion();	// Start continuous conversions, separated by the standby time
 ```
 
-To perform a single oneshot conversion:
+To perform a single oneshot conversion in **FORCED_MODE**:
 
 ```
 bmp280.startForcedConversion();	// Start a single oneshot conversion
 ```
 
-To stop the conversion at anytime and return to SLEEP_MODE:
+To stop the conversion at anytime and return to **SLEEP_MODE**:
 
 ```
 bmp280.stopConversion();	// Stop conversion and return to SLEEP_MODE
@@ -161,10 +161,11 @@ void loop()
   if (bmp280.getMeasurements(temperature, pressure, altitude))    // Check if the measurement is complete
   {
     Serial.print(temperature);                    // Display the results    
-    Serial.print(F("   "));
+    Serial.print(F("*C   "));
     Serial.print(pressure);    
-    Serial.print(F("   "));
-    Serial.println(altitude);  
+    Serial.print(F("hPa   "));
+    Serial.print(altitude);  
+		Serial.println(F(m"));
   }
 }
 ```
@@ -189,10 +190,11 @@ void loop()
   if (bmp280.getMeasurements(temperature, pressure, altitude))    // Check if the measurement is complete
   {
     Serial.print(temperature);                    // Display the results    
-    Serial.print(F("   "));
+    Serial.print(F("*C   "));
     Serial.print(pressure);    
-    Serial.print(F("   "));
-    Serial.println(altitude);  
+    Serial.print(F("hPa   "));
+    Serial.print(altitude);
+		Serial.println(F("m"));
   }
 }
 ```
@@ -203,7 +205,7 @@ The sketches for SPI operation are identical except that the line:
 BMP280 bmp280;	// Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
 ```
 
-...is replaced with the line:
+...should be replaced with the line:
 
 ```
 BMP280 bmp280(10);	// Instantiate (create) a BMP280 object and set-up for SPI operation with chip select on D10
