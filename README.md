@@ -140,7 +140,7 @@ bmp280.getAltitude(altitude);	// Acquire the altitude
 
 ### __Code Implementation__
 
-Here's an example of how to use the library for I2C operation, NORMAL_MODE, default configuration but with a standby time of 1 second:
+Here is an example sketch of how to use the BMP280 library for I2C operation, default configuration with continous conversion in NORMAL_MODE, but with a standby sampling time of 1 second:
 
 ```
 #include <BMP280.h>                               // Include the BMP280.h library
@@ -167,6 +167,46 @@ void loop()
     Serial.println(altitude);  
   }
 }
+```
+
+A second sketch example for I2C operation, default configuration in FORCED conversion mode:
+
+```
+#include <BMP280.h>                               // Include the BMP280.h library
+
+float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
+BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
+
+void setup() 
+{
+  Serial.begin(115200);                           // Initialise the serial port
+  bmp280.begin();                                 // Default initialisation, place the BMP280 into SLEEP_MODE 
+}
+
+void loop() 
+{
+  bmp280.startForcedConversion();                 // Start a forced conversion (if in SLEEP_MODE)
+  if (bmp280.getMeasurements(temperature, pressure, altitude))    // Check if the measurement is complete
+  {
+    Serial.print(temperature);                    // Display the results    
+    Serial.print(F("   "));
+    Serial.print(pressure);    
+    Serial.print(F("   "));
+    Serial.println(altitude);  
+  }
+}
+```
+
+The sketches for SPI operation are identical except that the line:
+
+```
+BMP280 bmp280;	// Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
+```
+
+...is replaced with the line:
+
+```
+BMP280 bmp280(10);	// Instantiate (create) a BMP280 object and set-up for SPI operation with chip select on D10
 ```
 
 ## __Example Code__
