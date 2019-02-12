@@ -35,7 +35,7 @@ Simply include the BMP280.h file at the beginning of your sketch:
 ```
 #include <BMP280.h>
 ```
-
+---
 For I2C communicaiton the BMP280 object is created (instantiated) without parameters:
 
 ```
@@ -49,7 +49,7 @@ For SPI communication the chip select (CS) Arduino digital output pin is specifi
 ```
 BMP280 bmp280(10);	// Set up SPI communications on digital pin D10
 ```
-
+---
 To initialise the bmp280 it is necessary to call the begin() function with or without parameters. The parameters specify the starting mode, pressure/temperature oversampling, IIR filter and standby time options respectively:
 
 ```
@@ -66,6 +66,7 @@ bmp280.begin();	// Initialise the BMP280 with default configuration
 
 The begin functions return the value 1 upon successful initialisation, otherwise it returns 0 for failure.
 
+---
 After initialisation it is possible to change the BMP280 configuration with the following functions:
 
 ```
@@ -83,7 +84,7 @@ bmp280.setIIRFilter(IIR_FILTER_16);	// Options are IIR_FILTER_OFF, _2, _4, _8, _
 ```
 bmp280.setTimeStandby(TIME_STANDBY_2000MS);	// Options are TIME_STANDBY_05MS, _62MS, _125MS, _250MS, _500MS, _1000MS, 2000MS, 4000MS
 ```
-
+---
 ### __Modes Of Operation__
 
 The BMP280 has 3 modes of operation: **SLEEP_MODE**, **NORMAL_MODE** and **FORCED_MODE**: 
@@ -111,7 +112,7 @@ To stop the conversion at anytime and return to **SLEEP_MODE**:
 ```
 bmp280.stopConversion();	// Stop conversion and return to SLEEP_MODE
 ```
-
+---
 ### __Results Acquisition__
 
 The BMP280 barometer library acquires temperature in degrees celius (**°C**), pressure in hectoPascals/millibar (**hPa**) and altitude in metres (**m**). The acquisition functions scan the BMP280's status register and return 1 if the barometer results are ready and have been successfully read, 0 if they are not; this allows for non-blocking code implementation. The temperature, pressure and altitude results themselves are _float_ variables by passed reference to the function and are updated upon a successful read.
@@ -137,7 +138,7 @@ bmp280.getPressure(pressure);	// Acquire the pressure only, (also calculates tem
 ```
 bmp280.getAltitude(altitude);	// Acquire the altitude
 ```
-
+---
 ### __Code Implementation__
 
 Here is an example sketch of how to use the BMP280 library for non-blocking I2C operation, default configuration with continous conversion in NORMAL_MODE, but with a standby sampling time of 1 second:
@@ -213,6 +214,7 @@ BMP280 bmp280(10);	// Instantiate (create) a BMP280 object and set-up for SPI op
 
 For more details see code examples provided in the _.../examples/..._ directory.
 
+---
 ## __Example Code__
 
 I2C Normal Mode sampling at 2s standby time intervals with default settings
