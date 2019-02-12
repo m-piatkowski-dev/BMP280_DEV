@@ -32,7 +32,9 @@ After download simply un-zip the file and place the BMP280 directory in your ...
 
 Simply include the BMP280.h file at the beginning of your sketch:
 
-**_#include <BMP280.h>_**
+```
+#include <BMP280.h>
+```
 
 For I2C communicaiton the BMP280 object is created (instantiated) without parameters:
 
@@ -42,13 +44,11 @@ BMP280 bmp280;	// Set up I2C communications
 
 By default the library uses the BMP280's I2C address 0x77. (To change use the alternate I2C address: 0x76, see the begin() function below.
 
-For SPI communication the chip select (CS) digital output pin is specified as an argument, for example digital pin 10:
+For SPI communication the chip select (CS) Arduino digital output pin is specified as an argument, for example digital pin 10:
 
 ```
-BMP280 bmp280(10);	// Set up SPI communications
+BMP280 bmp280(10);	// Set up SPI communications on digital pin D10
 ```
-
-### __Initialisation__
 
 To initialise the bmp280 it is necessary to call the begin function with or without parameters. The parameters specify the starting mode, pressure and temperature oversampling, IIR filter and standby time options respectively:
 
@@ -66,7 +66,7 @@ bmp280.begin();	// Initialise the BMP280 with default configuration
 
 The begin functions also return the value 1 upon successful initialisation, otherwise it returns 0 for failure.
 
-After initialisation it is possible to change the configuration with the following functions:
+After initialisation it is possible to change the BMP280 configuration with the following functions:
 
 ```
 bmp280.setPresOversamping(OVERSAMPING_X4);	// Options are OVERSAMPLING_SKIP, _X1, _X2, _X4, _X8, _X16
@@ -97,7 +97,7 @@ The BMP280 has 3 modes of operation: SLEEP_MODE, NORMAL_MODE and FORCED_MODE:
 To kick-off conversions in NORMAL_MODE:
 
 ```
-bmp280.startNormalConversion();	// Start continous conversions, separated by the standby time
+bmp280.startNormalConversion();	// Start continuous conversions, separated by the standby time
 ```
 
 To perform a single oneshot conversion:
@@ -114,7 +114,7 @@ bmp280.stopConversion();	// Stop conversion and return to SLEEP_MODE
 
 ### __Results Acquisition__
 
-The BMP280 barometer library acquires temperature in degrees celius (°C), pressure in hectoPascals/millibar (hPa) and altitude in metres (m). The acquisition functions scan the BMP280's status register and return 1 if the barometer results are ready and have been successfully read, 0 if they are not, this allows for non-blocking code implementation. The temperature, pressure and altitude results themselves are float variables by passed reference to the function and are updated upon a successful read.
+The BMP280 barometer library acquires temperature in degrees celius (**°C**), pressure in hectoPascals/millibar (**hPa**) and altitude in metres (**m**). The acquisition functions scan the BMP280's status register and return 1 if the barometer results are ready and have been successfully read, 0 if they are not; this allows for non-blocking code implementation. The temperature, pressure and altitude results themselves are _float_ variables by passed reference to the function and are updated upon a successful read.
 
 Here are the results acquisition functions:
 
