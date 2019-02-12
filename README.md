@@ -20,11 +20,11 @@ This BMP280 library offers the following features:
 
 ## __Arduino Compatibility__
 
-- All Arduino boards, but check if the BMP280 breakout board requires a 5V to +3.3V voltage level shifter
+- All Arduino boards, but for 5V Arduino boards (such as the Uno, Nano, Mega, Leaonardo, etc...), please check if the BMP280 breakout board requires a 5V to +3.3V voltage level shifter
 
 ## __Installation__
 
-After download simply un-zip the file and place the BMP280 directory in your ...Arduino/libraries folder. The Arduino folder is the one where your sketches are usually located for your Ardiuno IDE.
+After download simply un-zip the file and place the BMP280 directory in your ...Arduino/libraries/... folder. The Arduino folder is the one where your Arduino IDE sketches are usually located.
 
 ## __Usage__
 
@@ -36,37 +36,53 @@ Simply include the BMP280.h file at the beginning of your sketch:
 
 For I2C communicaiton the BMP280 object is created (instantiated) without parameters:
 
-**_BMP280 bmp280;			// Set up I2C communications_**
+```
+BMP280 bmp280;	// Set up I2C communications
+```
 
 By default the library uses the BMP280's I2C address 0x77. (To change use the alternate I2C address: 0x76, see the begin() function below.
 
 For SPI communication the chip select (CS) digital output pin is specified as an argument, for example digital pin 10:
 
-**_BMP280 bmp280(10);			// Set up SPI communications_**
+```
+BMP280 bmp280(10);	// Set up SPI communications
+```
 
 ### __Initialisation__
 
 To initialise the bmp280 it is necessary to call the begin function with or without parameters. The parameters specify the starting mode, pressure and temperature oversampling, IIR filter and standby time options respectively:
 
-**_bmp280.begin(SLEEP_MODE, OVERSAMPLING_X16, OVERSAMPLING_X2, IIR_FILTER_4, TIME_STANDBY_05MS);_**
+```
+bmp280.begin(SLEEP_MODE, OVERSAMPLING_X16, OVERSAMPLING_X2, IIR_FILTER_4, TIME_STANDBY_05MS);
+```
 
 Alternatively the begin function can be called with BMP280's alternate I2C address,
 
 Another alternative is to simply call the begin function without any paremeters, this sets up the default configuration: SLEEP_MODE, pressure oversampling X16, temperature oversampling X2, IIR filter OFF and a standby time of 0.5ms:
 
-**_bmp280.begin();_**			**_// Initialise the BMP280 with default configuration_**
+```
+bmp280.begin();	// Initialise the BMP280 with default configuration
+```
 
 The begin functions also return the value 1 upon successful initialisation, otherwise it returns 0 for failure.
 
 After initialisation it is possible to change the configuration with the following functions:
 
-**_bmp280.setPresOversamping(OVERSAMPING_X4);→→→// Options are OVERSAMPLING_SKIP, _X1, _X2, _X4, _X8, _X16_**
+```
+bmp280.setPresOversamping(OVERSAMPING_X4);	// Options are OVERSAMPLING_SKIP, _X1, _X2, _X4, _X8, _X16
+```
 
-**_bmp280.setTempOversamping(OVERSAMPING_X4);→→→// Options are OVERSAMPLING_SKIP, _X1, _X2, _X4, _X8, _X16_**
+```
+bmp280.setTempOversamping(OVERSAMPING_X4);	// Options are OVERSAMPLING_SKIP, _X1, _X2, _X4, _X8, _X16
+```
 
-**_bmp280.setIIRFilter(IIR_FILTER_16);→→→// Options are IIR_FILTER_OFF, _2, _4, _8, _16_**
+```
+bmp280.setIIRFilter(IIR_FILTER_16);	// Options are IIR_FILTER_OFF, _2, _4, _8, _16
+```
 
-**_bmp280.setTimeStandby(TIME_STANDBY_2000MS);→→→// Options are TIME_STANDBY_05MS, _62MS, _125MS, _250MS, _500MS, _1000MS, 2000MS, 4000MS_**
+```
+bmp280.setTimeStandby(TIME_STANDBY_2000MS);	// Options are TIME_STANDBY_05MS, _62MS, _125MS, _250MS, _500MS, _1000MS, 2000MS, 4000MS
+```
 
 ### __Modes Of Operation__
 
@@ -80,30 +96,78 @@ The BMP280 has 3 modes of operation: SLEEP_MODE, NORMAL_MODE and FORCED_MODE:
 
 To kick-off conversions in NORMAL_MODE:
 
-**_bmp280.startNormalConversion();→→→// Start continous conversions, separated by the standby time_**
+```
+bmp280.startNormalConversion();	// Start continous conversions, separated by the standby time
+```
 
 To perform a single oneshot conversion:
 
-**_bmp280.startForcedConversion();→→→// Start a single oneshot conversion_**
+```
+bmp280.startForcedConversion();	// Start a single oneshot conversion
+```
 
 To stop the conversion at anytime and return to SLEEP_MODE:
 
-**_bmp280.stopConversion();→→→// Stop conversion and return to SLEEP_MODE_**
+```
+bmp280.stopConversion();	// Stop conversion and return to SLEEP_MODE
+```
 
 ### __Results Acquisition__
 
 The BMP280 barometer library acquires temperature in degrees celius (°C), pressure in hectoPascals/millibar (hPa) and altitude in metres (m). The acquisition functions scan the BMP280's status register and return 1 if the barometer results are ready and have been successfully read, 0 if they are not, this allows for non-blocking code implementation. The temperature, pressure and altitude results themselves are float variables by passed reference to the function and are updated upon a successful read.
 
-To acquire the 
+Here are the results acquisition functions:
 
-To acquire the results from the conversion, there are number of functions that return the either the temperature, pressure or altitude or all three measurements together. 
+```
+bmp280.getMeasurements(temperature, pressure, altitude);	// Acquire temperature, pressue and altitude measurements
+```
 
-The function's return value indicates if barometer has finished conversion and has results available and allows for non-blocking operation. The float temperature, pressure and altitude parameters are passed by reference to the function and contain the results if the function has successfully completed.  
+```
+bmp280.getTempPres(temperature, pressure);	// Acquire both the temperature and pressure
+```
 
+```
+bmp280.getTemperature(temperature);	// Acquire the temperature only
+```
 
-Configuration
+```
+bmp280.getPressure(pressure);	// Acquire the pressure only (also calculates temperature, but doesn't return it)
+```
 
-Data Acquisition
+```
+bmp280.getAltitude(altitude);	// Acquire the altitude
+```
+
+### __Code Implementation__
+
+Here's an example of how to use the library for I2C operation, NORMAL_MODE, default configuration but with a standby time of 1 second:
+
+```
+#include <BMP280.h>                               // Include the BMP280.h library
+
+float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
+BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
+
+void setup() 
+{
+  Serial.begin(115200);                           // Initialise the serial port
+  bmp280.begin();                                 // Default initialisation, place the BMP280 into SLEEP_MODE 
+  bmp280.setTimeStandby(TIME_STANDBY_1000MS);     // Set the standby time to 1s
+  bmp280.startNormalConversion();                 // Start NORMAL conversion mode
+}
+
+void loop() 
+{
+  if (bmp280.getMeasurements(temperature, pressure, altitude))    // Check if the measurement is complete
+  {
+    Serial.print(temperature);                    // Display the results    
+    Serial.print(F("   "));
+    Serial.print(pressure);    
+    Serial.print(F("   "));
+    Serial.println(altitude);  
+  }
+}
+```
 
 ## __Example Code__
 
