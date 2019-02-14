@@ -163,7 +163,7 @@ bmp280.getAltitude(altitude);	// Acquire the altitude only
 ---
 ### __Code Implementation__
 
-Here is an example sketch of how to use the BMP280 library for non-blocking I2C operation, default configuration with continous conversion in NORMAL_MODE, but with a standby sampling time of 1 second:
+Here is an example sketch of how to use the BMP280 library for non-blocking I2C operation, default configuration with continuous conversion in NORMAL_MODE, but with a standby sampling time of 1 second:
 
 ```
 void setup() 
