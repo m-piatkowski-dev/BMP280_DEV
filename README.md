@@ -66,7 +66,7 @@ Alternatively simply call the begin function without any paremeters, this sets u
 bmp280.begin();	// Initialise the BMP280 with default configuration
 ```
 
-Another alternative is pass the BMP280's mode as an argument:
+Another alternative is to pass the BMP280's mode as an argument:
 
 ```
 bmp280.begin(NORMAL_MODE);	// Initialise the BMP280 in NORMAL_MODE with default configuration
