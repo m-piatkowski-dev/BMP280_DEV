@@ -5,7 +5,7 @@
 #include <BMP280.h>                               // Include the BMP280.h library
 
 float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
-BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for SPI operation on digital pin D10
+BMP280 bmp280(10);                                // Instantiate (create) a BMP280 object and set-up for SPI operation on digital pin D10
 
 void setup() 
 {
