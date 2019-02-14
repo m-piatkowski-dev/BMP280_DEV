@@ -84,7 +84,7 @@ bmp280.begin(FORCED_MODE, BMP280_I2C_ALT_ADDR);	// Initialise the BMP280 in FORC
 bmp280.begin(BMP280_I2C_ALT_ADDR);	// Initialise the BMP280 with the alternate I2C address (0x76)
 ```
 
-The begin functions return the value 1 upon successful initialisation, otherwise it returns 0 for failure.
+Note that the begin functions return the value 1 upon successful initialisation, otherwise it returns 0 for failure.
 
 ---
 ### __Device Configuration__
