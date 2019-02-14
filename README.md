@@ -36,7 +36,7 @@ Simply include the BMP280.h file at the beginning of your sketch:
 #include <BMP280.h>
 ```
 
-For I2C communicaiton the BMP280 object is created (instantiated) without parameters:
+For I2C communication the BMP280 object is created (instantiated) without parameters:
 
 ```
 BMP280 bmp280;	// Set up I2C communications
@@ -58,8 +58,6 @@ To initialise the bmp280 it is necessary to call the begin() function with or wi
 bmp280.begin(SLEEP_MODE, OVERSAMPLING_X16, OVERSAMPLING_X2, IIR_FILTER_4, TIME_STANDBY_05MS);
 ```
 
-Alternatively the begin function can be called with BMP280's alternate I2C address,
-
 Alternatively simply call the begin function without any paremeters, this sets up the default configuration: SLEEP_MODE, pressure oversampling X16, temperature oversampling X2, IIR filter OFF and a standby time of 0.5ms:
 
 ```
@@ -78,7 +76,7 @@ Or, specifying mode and alternate I2C address:
 bmp280.begin(FORCED_MODE, BMP280_I2C_ALT_ADDR);	// Initialise the BMP280 in FORCED_MODE with the alternate I2C address (0x76)
 ```
 
-...or even just the alternate I2C address, (BMP280 initialised in SLEEP_MODE by default):
+Or even just the alternate I2C address, (BMP280 initialised in SLEEP_MODE by default):
 
 ```
 bmp280.begin(BMP280_I2C_ALT_ADDR);	// Initialise the BMP280 with the alternate I2C address (0x76)
@@ -166,11 +164,6 @@ bmp280.getAltitude(altitude);	// Acquire the altitude only
 Here is an example sketch of how to use the BMP280 library for non-blocking I2C operation, default configuration with continous conversion in NORMAL_MODE, but with a standby sampling time of 1 second:
 
 ```
-#include <BMP280.h>                               // Include the BMP280.h library
-
-float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
-BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
-
 void setup() 
 {
   Serial.begin(115200);                           // Initialise the serial port
@@ -188,7 +181,7 @@ void loop()
     Serial.print(pressure);    
     Serial.print(F("hPa   "));
     Serial.print(altitude);
-		Serial.println(F(m"));
+    Serial.println(F(m"));
   }
 }
 ```
@@ -196,11 +189,6 @@ void loop()
 A second sketch example for I2C operation, default configuration in FORCED conversion mode:
 
 ```
-#include <BMP280.h>                               // Include the BMP280.h library
-
-float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
-BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
-
 void setup() 
 {
   Serial.begin(115200);                           // Initialise the serial port
@@ -217,7 +205,7 @@ void loop()
     Serial.print(pressure);    
     Serial.print(F("hPa   "));
     Serial.print(altitude);
-		Serial.println(F("m"));
+    Serial.println(F("m"));
   }
 }
 ```
@@ -239,13 +227,15 @@ For more details see code examples provided in the _.../examples/..._ directory.
 ---
 ## __Example Code__
 
-I2C Normal Mode sampling at 2s standby time intervals with default settings
+I2C Normal Mode: sampling at 2 seconds standby time intervals with default settings
 
-I2C Forced Mode with default settings
+I2C Normal Mode (Alterntive I2C Address): sampling at 2 second standby time intervals with default settings
 
-SPI Normal Mode sampling at 1s standby time intervals with custom settings
+I2C Forced Mode: with default settings
 
-SPI Forced Mode with custom settings
+SPI Normal Mode: sampling at 2s standby time intervals with default settings
+
+SPI Forced Mode: with default settings
 
 
 
