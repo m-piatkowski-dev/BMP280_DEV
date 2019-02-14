@@ -20,7 +20,7 @@ This BMP280 library offers the following features:
 
 ## __Arduino Compatibility__
 
-- All Arduino boards, but for 5V Arduino boards (such as the Uno, Nano, Mega, Leaonardo, etc...), please check if the BMP280 breakout board requires a 5V to +3.3V voltage level shifter
+- All Arduino boards, but for 5V Arduino boards (such as the Uno, Nano, Mega, Leonardo, etc...), please check if the BMP280 breakout board requires a 5V to +3.3V voltage level shifter
 
 ## __Installation__
 
@@ -60,10 +60,28 @@ bmp280.begin(SLEEP_MODE, OVERSAMPLING_X16, OVERSAMPLING_X2, IIR_FILTER_4, TIME_S
 
 Alternatively the begin function can be called with BMP280's alternate I2C address,
 
-Another alternative is to simply call the begin function without any paremeters, this sets up the default configuration: SLEEP_MODE, pressure oversampling X16, temperature oversampling X2, IIR filter OFF and a standby time of 0.5ms:
+Alternatively simply call the begin function without any paremeters, this sets up the default configuration: SLEEP_MODE, pressure oversampling X16, temperature oversampling X2, IIR filter OFF and a standby time of 0.5ms:
 
 ```
 bmp280.begin();	// Initialise the BMP280 with default configuration
+```
+
+Another alternative is pass the BMP280's mode as an argument:
+
+```
+bmp280.begin(NORMAL_MODE);	// Initialise the BMP280 in NORMAL_MODE with default configuration
+```
+
+Or, specifying mode and alternate I2C address:
+
+```
+bmp280.begin(FORCED_MODE, BMP280_I2C_ALT_ADDR);	// Initialise the BMP280 in FORCED_MODE with the alternate I2C address (0x76)
+```
+
+...or even just the alternate I2C address, (BMP280 initialised in SLEEP_MODE by default):
+
+```
+bmp280.begin(BMP280_I2C_ALT_ADDR);	// Initialise the BMP280 with the alternate I2C address (0x76)
 ```
 
 The begin functions return the value 1 upon successful initialisation, otherwise it returns 0 for failure.
