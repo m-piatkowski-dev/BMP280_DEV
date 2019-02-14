@@ -1,3 +1,7 @@
+///////////////////////////////////////////////////////////////////////////////
+// BMP280 - SPI Communications, Default Configuration, Forced Conversion
+///////////////////////////////////////////////////////////////////////////////
+
 #include <BMP280.h>                               // Include the BMP280.h library
 
 float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
