@@ -187,7 +187,7 @@ void loop()
     Serial.print(F("*C   "));
     Serial.print(pressure);    
     Serial.print(F("hPa   "));
-    Serial.print(altitude);  
+    Serial.print(altitude);
 		Serial.println(F(m"));
   }
 }
