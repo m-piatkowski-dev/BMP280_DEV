@@ -57,9 +57,21 @@ uint8_t BMP280::begin(Mode mode, 																		// Initialise BMP280 device s
 	return 1;																													// Report successful initialisation
 }
 
+uint8_t BMP280::begin(Mode mode, uint8_t addr)											// Initialise BMP280 with default settings, but selected mode and
+{																																		// I2C address
+	setI2CAddress(addr);
+	begin(mode);
+}
+
 uint8_t BMP280::begin(Mode mode)																		// Initialise BMP280 with default settings and selected mode
 {
 	return begin(mode, OVERSAMPLING_X16, OVERSAMPLING_X2, IIR_FILTER_OFF, TIME_STANDBY_05MS);
+}
+
+uint8_t BMP280::begin(uint8_t addr)																	// Initialise BMP280 with default settings and selected I2C address
+{
+	setI2CAddress(addr);
+	return begin(SLEEP_MODE, OVERSAMPLING_X16, OVERSAMPLING_X2, IIR_FILTER_OFF, TIME_STANDBY_05MS);
 }
 
 uint8_t BMP280::begin()																							// Initialise BMP280 with default settings (place in SLEEP_MODE)
@@ -82,7 +94,7 @@ void BMP280::startNormalConversion() { setMode(NORMAL_MODE); }			// Start contin
 
 void BMP280::startForcedConversion() 																// Start a one shot measurement in FORCED_MODE
 { 
-	if (getMode() == SLEEP_MODE)																			// Only set FORCED_MODE if we're already in SLEEP_MODE
+	if (ctrl_meas.bit.mode == SLEEP_MODE)															// Only set FORCED_MODE if we're already in SLEEP_MODE
 	{
 		setMode(FORCED_MODE);
 	}	
@@ -176,12 +188,6 @@ void BMP280::setMode(Mode mode)																			// Set the BMP280's mode
 {
 	ctrl_meas.bit.mode = mode;
 	writeByte(BMP280_CTRL_MEAS & writeMask, ctrl_meas.reg);
-}
-
-uint8_t BMP280::getMode()																						// Get the BMP280's mode
-{
-	ctrl_meas.reg = readByte(BMP280_CTRL_MEAS);
-	return ctrl_meas.bit.mode;
 }
 
 // Set the BMP280 control and measurement register 
