@@ -120,6 +120,8 @@ class BMP280 : public Device {																	// Derive the BMP280 class from t
 									IIRFilter iirFilter, 
 									TimeStandby timeStandby);
 		uint8_t begin(Mode mode);																		// Initialise the barometer specifying start mode with default initialisation
+		uint8_t begin(Mode mode, uint8_t addr);											// Initialise the barometer specifying start mode and I2C addrss
+		uint8_t begin(uint8_t addr);																// Initialise the barometer specifying I2C address with default initialisation
 		uint8_t begin();																						// Initialise the barometer in SLEEP_MODE with default initialisation
 		void reset();																								// Soft reset the barometer
 		void setAltI2CAddress();																		// Set the alternate I2C address		
@@ -138,7 +140,6 @@ class BMP280 : public Device {																	// Derive the BMP280 class from t
 	protected:
 	private:
 		void setMode(Mode mode);																		// Set the barometer mode
-		uint8_t getMode();																					// Get the barometer mode
 		void setCtrlMeasRegister(Mode mode, Oversampling presOversampling, Oversampling tempOversamping);		// Set the BMP280 control and measurment register
 		void setConfigRegister(IIRFilter iirFilter, TimeStandby timeStandby);		// Set the BMP280 configuration register
 		uint8_t checkMode();																				// Checks the barometer's mode before taking a measurement
@@ -193,5 +194,4 @@ class BMP280 : public Device {																	// Derive the BMP280 class from t
 };
 
 #endif
-
 
