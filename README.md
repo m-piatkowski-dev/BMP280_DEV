@@ -7,7 +7,7 @@ An Arduino compatible, non-blocking, I2C/SPI library for the Bosch BMP280 barome
 
 This BMP280 library offers the following features:
 
-- Returns temperature, pressure and altitude information
+- Returns temperature in degrees celius (**°C**), pressure in hectoPascals/millibar (**hPa**) and altitude in metres (**m**)
 - NORMAL or FORCED modes of operation
 - I2C or hardware SPI communications with configurable clock rates
 - Non-blocking operation 
