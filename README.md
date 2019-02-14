@@ -11,7 +11,7 @@ This BMP280 library offers the following features:
 - NORMAL or FORCED modes of operation
 - I2C or hardware SPI communications with configurable clock rates
 - Non-blocking operation 
-- In NORMAL mode barometer returns results at the specified standby time interval
+- In NORMAL mode the barometer returns results at the specified standby time interval
 - Highly configurable, allows for changes to pressure and temperature oversampling, IIR filter and standby time
 
 ## __Version__
