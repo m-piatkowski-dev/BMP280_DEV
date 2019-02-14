@@ -233,7 +233,7 @@ I2C Normal Mode (Alterntive I2C Address): sampling at 2 second standby time inte
 
 I2C Forced Mode: with default settings
 
-SPI Normal Mode: sampling at 2s standby time intervals with default settings
+SPI Normal Mode: sampling at 2 second standby time intervals with default settings
 
 SPI Forced Mode: with default settings
 
