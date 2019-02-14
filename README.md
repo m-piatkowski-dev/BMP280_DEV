@@ -49,6 +49,8 @@ For SPI communication the chip select (CS) Arduino digital output pin is specifi
 ```
 BMP280 bmp280(10);	// Set up SPI communications on digital pin D10
 ```
+By default the I2C runs in fast mode at 400kHz and SPI at 1MHz.
+
 ---
 ### __Device Initialisation__
 
