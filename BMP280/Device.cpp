@@ -39,7 +39,7 @@ Device::Device(uint8_t cs) : comms(SPI_COMMS), cs(cs), spiClockSpeed(1000000) {}
 // Device Public Member Function
 ////////////////////////////////////////////////////////////////////////////////
 
-void Device::setClock(uint32_t clockSpeed)
+void Device::setClock(uint32_t clockSpeed)													// Set the I2C or SPI clock speed
 {
 	if (comms == I2C_COMMS)
 	{
@@ -79,14 +79,14 @@ void Device::writeByte(uint8_t subAddress, uint8_t data)
 {
   if (comms == I2C_COMMS)
 	{
-		Wire.beginTransmission(address);  // Select the device I2C address
-		Wire.write(subAddress);           // Specify the device sub (register) address
-		Wire.write(data);                 // Specify the data to be sent
-		Wire.endTransmission();           // Transmit
+		Wire.beginTransmission(address);  															// Write a byte to the sub-address using I2C
+		Wire.write(subAddress);          
+		Wire.write(data);                 
+		Wire.endTransmission();          
 	}
 	else // if (comms == SPI_COMMS)
 	{
-		SPI.beginTransaction(SPISettings(spiClockSpeed, MSBFIRST, SPI_MODE0));
+		SPI.beginTransaction(SPISettings(spiClockSpeed, MSBFIRST, SPI_MODE0));	// Write a byte to the sub-address using SPI
 		digitalWrite(cs, LOW);
 		SPI.transfer(subAddress);
 		SPI.transfer(data);
@@ -95,46 +95,46 @@ void Device::writeByte(uint8_t subAddress, uint8_t data)
 	}
 }
 
-uint8_t Device::readByte(uint8_t subAddress)
+uint8_t Device::readByte(uint8_t subAddress)												// Read a byte from the sub-address using I2C
 {
   uint8_t data;
-	if (comms == I2C_COMMS)
+	if (comms == I2C_COMMS)																		
 	{
-		Wire.beginTransmission(address);         // Select the device I2C address
-		Wire.write(subAddress);                  // Specify the device sub (register) address
-		Wire.endTransmission(false);             // Transmit, but send a restart to keep connection alive
-		Wire.requestFrom(address, (uint8_t)1);	 // Read one byte from slave register address 
-		data = Wire.read();                      // Fill Rx buffer with result
+		Wire.beginTransmission(address);         
+		Wire.write(subAddress);                  
+		Wire.endTransmission(false);             
+		Wire.requestFrom(address, (uint8_t)1);	 
+		data = Wire.read();                      
 	}
 	else // if (comms == SPI_COMMS)
 	{
-		SPI.beginTransaction(SPISettings(spiClockSpeed, MSBFIRST, SPI_MODE0));
+		SPI.beginTransaction(SPISettings(spiClockSpeed, MSBFIRST, SPI_MODE0));		// Read a byte from the sub-address using SPI
 		digitalWrite(cs, LOW);
 		SPI.transfer(subAddress);
 		data = SPI.transfer(data);
 		digitalWrite(cs, HIGH);
 		SPI.endTransaction();	
 	}
-  return data;                             // Return data read from slave register
+  return data;                             													// Return data read from sub-address register
 }
 
 void Device::readBytes(uint8_t subAddress, uint8_t* dest, uint8_t count)
 {  
-  if (comms == I2C_COMMS)
+  if (comms == I2C_COMMS)																						// Read "count" bytes into the "dest" buffer using I2C
 	{
-		Wire.beginTransmission(address);          // Initialize the Tx buffer
-		Wire.write(subAddress);                   // Put slave register address in Tx buffer
-		Wire.endTransmission(false);              // Send the Tx buffer, but send a restart to keep connection alive
+		Wire.beginTransmission(address);          
+		Wire.write(subAddress);                   
+		Wire.endTransmission(false);              
 		uint8_t i = 0;
-		Wire.requestFrom(address, count);  // Read bytes from slave register address 
+		Wire.requestFrom(address, count);  
 		while (Wire.available()) 
 		{
-			dest[i++] = Wire.read();          // Put read results in the Rx buffer
+			dest[i++] = Wire.read();          
 		}
 	}
-	else // if (comms == SPI_COMMS)
+	else // if (comms == SPI_COMMS)		
 	{
-		SPI.beginTransaction(SPISettings(spiClockSpeed, MSBFIRST, SPI_MODE0));
+		SPI.beginTransaction(SPISettings(spiClockSpeed, MSBFIRST, SPI_MODE0));	// Read "count" bytes into the "dest" buffer using SPI
 		digitalWrite(cs, LOW);
 		SPI.transfer(subAddress);
 		SPI.transfer(dest, count);
@@ -142,5 +142,4 @@ void Device::readBytes(uint8_t subAddress, uint8_t* dest, uint8_t count)
 		SPI.endTransaction();	
 	}
 }
-
 
