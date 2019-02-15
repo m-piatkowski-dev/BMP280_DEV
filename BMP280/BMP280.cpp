@@ -85,11 +85,6 @@ void BMP280::reset()																								// Reset the BMP280 barometer
   delay(10);                                                                
 }
 
-void BMP280::setAltI2CAddress()																			// Set the BMP280's alternative I2C address (0x76)
-{
-	setI2CAddress(BMP280_I2C_ALT_ADDR);
-}
-
 void BMP280::startNormalConversion() { setMode(NORMAL_MODE); }			// Start continuous measurement in NORMAL_MODE
 
 void BMP280::startForcedConversion() 																// Start a one shot measurement in FORCED_MODE
