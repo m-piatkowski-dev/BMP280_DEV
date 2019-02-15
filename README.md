@@ -42,7 +42,7 @@ For I2C communication the BMP280 object is created (instantiated) without parame
 BMP280 bmp280;	// Set up I2C communications
 ```
 
-By default the library uses the BMP280's I2C address 0x77. (To change use the alternate I2C address: 0x76, see the begin() function below.
+By default the library uses the BMP280's I2C address 0x77. (To use the alternate I2C address: 0x76, see the begin() function below.
 
 For SPI communication the chip select (CS) Arduino digital output pin is specified as an argument, for example digital pin 10:
 
