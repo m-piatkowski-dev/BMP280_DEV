@@ -46,11 +46,11 @@ enum Comms { I2C_COMMS, SPI_COMMS };
 class Device{
 	public:
 		Device();																										// Instantiate (create) Device object for I2C operation
-		Device(uint8_t cs);																					// Instantiate (create) Device object for SPI operation		
+		Device(uint8_t cs);																					// Instantiate (create) Device object for SPI operation	
+		void setClock(uint32_t clockSpeed);													// Set the I2C/SPI clock speed
 	protected:
 		void initialise();																					// Initialise communications	
 		void setI2CAddress(uint8_t addr);											  		// Set the Device I2C address
-		void setClock(uint32_t clockSpeed);													// Set the I2C/SPI clock speed
 		void writeByte(uint8_t subAddress, uint8_t data);						// I2C and SPI write byte wrapper function
 		uint8_t readByte(uint8_t subAddress);												// I2C and SPI read byte wrapper function
 		void readBytes(uint8_t subAddress, uint8_t* dest, uint8_t count);		// I2C and SPI read bytes wrapper function
