@@ -14,7 +14,6 @@ BMP280    								KEYWORD1
 
 begin											KEYWORD2
 reset											KEYWORD2
-setAltI2CAddress					KEYWORD2
 startNormalConversion			KEYWORD2
 startForcedConversion			KEYWORD2
 stopConversion						KEYWORD2
@@ -26,6 +25,7 @@ getPressure 							KEYWORD2
 getTempPres 							KEYWORD2
 getAltitude 							KEYWORD2
 getMeasurements 					KEYWORD2
+setClock									KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
