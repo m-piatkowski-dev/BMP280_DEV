@@ -123,8 +123,7 @@ class BMP280 : public Device {																	// Derive the BMP280 class from t
 		uint8_t begin(Mode mode, uint8_t addr);											// Initialise the barometer specifying start mode and I2C addrss
 		uint8_t begin(uint8_t addr);																// Initialise the barometer specifying I2C address with default initialisation
 		uint8_t begin();																						// Initialise the barometer in SLEEP_MODE with default initialisation
-		void reset();																								// Soft reset the barometer
-		void setAltI2CAddress();																		// Set the alternate I2C address		
+		void reset();																								// Soft reset the barometer		
 		void startNormalConversion();																// Start continuous measurement in NORMAL_MODE
 		void startForcedConversion();															  // Start a one shot measurement in FORCED_MODE
 		void stopConversion();																			// Stop the conversion and return to SLEEP_MODE
