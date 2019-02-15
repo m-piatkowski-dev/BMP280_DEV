@@ -166,6 +166,11 @@ bmp280.getAltitude(altitude);	// Acquire the altitude only
 Here is an example sketch of how to use the BMP280 library for non-blocking I2C operation, default configuration with continuous conversion in NORMAL_MODE, but with a standby sampling time of 1 second:
 
 ```
+#include <BMP280.h>                               // Include the BMP280.h library
+
+float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
+BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
+
 void setup() 
 {
   Serial.begin(115200);                           // Initialise the serial port
@@ -191,6 +196,11 @@ void loop()
 A second sketch example for I2C operation, default configuration in FORCED conversion mode:
 
 ```
+#include <BMP280.h>                               // Include the BMP280.h library
+
+float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
+BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
+
 void setup() 
 {
   Serial.begin(115200);                           // Initialise the serial port
