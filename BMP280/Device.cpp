@@ -39,6 +39,22 @@ Device::Device(uint8_t cs) : comms(SPI_COMMS), cs(cs), spiClockSpeed(1000000) {}
 // Device Public Member Function
 ////////////////////////////////////////////////////////////////////////////////
 
+void Device::setClock(uint32_t clockSpeed)
+{
+	if (comms == I2C_COMMS)
+	{
+		Wire.setClock(clockSpeed);
+	}
+	else
+	{
+		spiClockSpeed = clockSpeed;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Device I2C & SPI Wrapper (Protected) Member Functions
+////////////////////////////////////////////////////////////////////////////////
+
 void Device::initialise()																						// Initialise device communications
 {
   if (comms == I2C_COMMS)																						// Check with communications bus has been selected I2C or SPI
@@ -54,25 +70,9 @@ void Device::initialise()																						// Initialise device communicatio
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Device I2C & SPI Wrapper (Protected) Member Functions
-////////////////////////////////////////////////////////////////////////////////
-
 void Device::setI2CAddress(uint8_t addr)														// Set the Device's I2C address
 {	
 	address = addr;
-}
-
-void Device::setClock(uint32_t clockSpeed)
-{
-	if (comms == I2C_COMMS)
-	{
-		Wire.setClock(clockSpeed);
-	}
-	else
-	{
-		spiClockSpeed = clockSpeed;
-	}
 }
 
 void Device::writeByte(uint8_t subAddress, uint8_t data)
