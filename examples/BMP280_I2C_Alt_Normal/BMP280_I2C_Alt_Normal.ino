@@ -1,8 +1,8 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// BMP280 - I2C Communications (Alternative Address), Default Configuration, Normal Conversion
-///////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// BMP280_DEV - I2C Communications (Alternative Address), Default Configuration, Normal Conversion
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include <BMP280.h>                               // Include the BMP280.h library
+#include <BMP280_DEV.h>                           // Include the BMP280_DEV.h library
 
 float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
 BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for I2C operation
