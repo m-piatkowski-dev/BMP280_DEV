@@ -1,5 +1,5 @@
 /*
-  BMP280 is an I2C/SPI compatible library for the Bosch BMP280 barometer.
+  BMP280_DEV is an I2C/SPI compatible library for the Bosch BMP280 barometer.
 	
 	Copyright (C) Martin Lindupp 2019
 	
