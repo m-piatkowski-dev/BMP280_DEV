@@ -3,7 +3,8 @@
 	
 	Copyright (C) Martin Lindupp 2019
 	
-	V1.0.0 -- Initial release 		
+	V1.0.0 -- Initial release 
+	V1.0.1 -- Added ESP32 HSPI support	
 	
 	The MIT License (MIT)
 	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -42,8 +43,11 @@ enum Comms { I2C_COMMS, SPI_COMMS };
 
 class Device{
 	public:
-		Device();																										// Instantiate (create) Device object for I2C operation
-		Device(uint8_t cs);																					// Instantiate (create) Device object for SPI operation	
+		Device();																										// Device object for I2C operation
+		Device(uint8_t cs);																					// Device object for SPI operation
+#ifdef ARDUINO_ARCH_ESP32
+		Device(uint8_t cs, uint8_t spiPort);												// Device object for ESP32 HSPI operation
+#endif		
 		void setClock(uint32_t clockSpeed);													// Set the I2C/SPI clock speed
 	protected:
 		void initialise();																					// Initialise communications	
@@ -56,6 +60,12 @@ class Device{
 		uint8_t address;																						// The device I2C address
 		uint8_t cs;																									// The SPI chip select pin	
 		uint32_t spiClockSpeed;																			// The SPI clock speed
+		SPIClass* spi;																							// Pointer to the SPI class
+#ifdef ARDUINO_ARCH_ESP32
+		uint8_t spiPort;																						// SPI port type VSPI or HSPI
+		SPIClass SPI1;																							// HSPI object SPI1
+#endif
 };
 
 #endif
+
