@@ -1,11 +1,11 @@
-# BMP280
+# BMP280_DEV
 An Arduino compatible, non-blocking, I2C/SPI library for the Bosch BMP280 barometer.
 
 ![alt text](https://cdn-learn.adafruit.com/assets/assets/000/026/851/small240/sensors_2651_iso_ORIG.jpg?1438369374 "Adafruit BMP280 Breakout Board")
 
 © Copyright, image courtesy of [Adafruit Industries](https://www.adafruit.com/product/2651) lisensed under the terms of the [Create Commons Attribution-ShareAlike 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/legalcode). 
 
-This BMP280 library offers the following features:
+This BMP280_DEV library offers the following features:
 
 - Returns temperature in degrees celius (**°C**), pressure in hectoPascals/millibar (**hPa**) and altitude in metres (**m**)
 - NORMAL or FORCED modes of operation
@@ -16,6 +16,7 @@ This BMP280 library offers the following features:
 
 ## __Version__
 
+- Version 1.0.1 -- Added ESP32 HSPI support and changed library name for Arduino compatibility
 - Version 1.0.0 -- Intial version
 
 ## __Arduino Compatibility__
@@ -28,18 +29,18 @@ After download simply un-zip the file and place the BMP280 directory in your _..
 
 ## __Usage__
 
-### __BMP280 Library__
+### __BMP280_DEV Library__
 
-Simply include the BMP280.h file at the beginning of your sketch:
-
-```
-#include <BMP280.h>
-```
-
-For I2C communication the BMP280 object is created (instantiated) without parameters:
+Simply include the BMP280_DEV.h file at the beginning of your sketch:
 
 ```
-BMP280 bmp280;	// Set up I2C communications
+#include <BMP280_DEV.h>
+```
+
+For I2C communication the BMP280_DEV object is created (instantiated) without parameters:
+
+```
+BMP280_DEV bmp280;	// Set up I2C communications
 ```
 
 By default the library uses the BMP280's I2C address 0x77. (To use the alternate I2C address: 0x76, see the begin() function below.
@@ -47,8 +48,15 @@ By default the library uses the BMP280's I2C address 0x77. (To use the alternate
 For SPI communication the chip select (CS) Arduino digital output pin is specified as an argument, for example digital pin 10:
 
 ```
-BMP280 bmp280(10);	// Set up SPI communications on digital pin D10
+BMP280_dev bmp280(10);	// Set up SPI communications on digital pin D10
 ```
+
+The library also supports the ESP32 HSPI operation on pins: SCK 14, MOSI 13, MISO 27 and user defined SS (CS):
+
+```
+BMP280_DEV bmp(21, HSPI);		// Set up HSPI port communications on the ESP32
+```
+
 By default the I2C runs in fast mode at 400kHz and SPI at 1MHz.
 
 ---
@@ -166,10 +174,10 @@ bmp280.getAltitude(altitude);	// Acquire the altitude only
 Here is an example sketch of how to use the BMP280 library for non-blocking I2C operation, default configuration with continuous conversion in NORMAL_MODE, but with a standby sampling time of 1 second:
 
 ```
-#include <BMP280.h>                               // Include the BMP280.h library
+#include <BMP280_DEV.h>                           // Include the BMP280_DEV.h library
 
 float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
-BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
+BMP280_DEV bmp280;                                // Instantiate (create) a BMP280_DEV object and set-up for I2C operation (address 0x77)
 
 void setup() 
 {
@@ -196,10 +204,10 @@ void loop()
 A second sketch example for I2C operation, default configuration in FORCED conversion mode:
 
 ```
-#include <BMP280.h>                               // Include the BMP280.h library
+#include <BMP280_DEV.h>                           // Include the BMP280_DEV.h library
 
 float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
-BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
+BMP280_DEV bmp280;                                // Instantiate (create) a BMP280_DEV object and set-up for I2C operation (address 0x77)
 
 void setup() 
 {
@@ -225,13 +233,13 @@ void loop()
 The sketches for SPI operation are identical except that the line:
 
 ```
-BMP280 bmp280;	// Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
+BMP280_DEV bmp280;	// Instantiate (create) a BMP280_DEV object and set-up for I2C operation (address 0x77)
 ```
 
 ...should be replaced with the line:
 
 ```
-BMP280 bmp280(10);	// Instantiate (create) a BMP280 object and set-up for SPI operation with chip select on D10
+BMP280_DEV bmp280(10);	// Instantiate (create) a BMP280_DEV object and set-up for SPI operation with chip select on D10
 ```
 
 For more details see code examples provided in the _.../examples/..._ directory.
@@ -249,5 +257,5 @@ SPI Normal Mode: sampling at 2 second standby time intervals with default settin
 
 SPI Forced Mode: with default settings
 
-
+ESP32 HSPI Normal Mode: sampling at 1 second standby time intervals with default settings
 
