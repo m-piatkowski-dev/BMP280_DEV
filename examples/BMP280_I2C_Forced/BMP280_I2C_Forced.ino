@@ -5,7 +5,7 @@
 #include <BMP280_DEV.h>                           // Include the BMP280_DEV.h library
 
 float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
-BMP280 bmp280;                                    // Instantiate (create) a BMP280 object and set-up for I2C operation (address 0x77)
+BMP280_DEV bmp280;                                // Instantiate (create) a BMP280_DEV object and set-up for I2C operation (address 0x77)
 
 void setup() 
 {
