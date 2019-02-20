@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////////////////
-// BMP280 - SPI Communications, Default Configuration, Forced Conversion
-///////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+// BMP280_DEV - SPI Communications, Default Configuration, Forced Conversion
+/////////////////////////////////////////////////////////////////////////////////
 
-#include <BMP280.h>                               // Include the BMP280.h library
+#include <BMP280_DEV.h>                           // Include the BMP280_DEV.h library
 
 float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
-BMP280 bmp280(10);                                // Instantiate (create) a BMP280 object and set-up for SPI operation on digital pin D10
+BMP280_DEV bmp280(10);                            // Instantiate (create) a BMP280_DEV object and set-up for SPI operation on digital pin D10
 
 void setup() 
 {
