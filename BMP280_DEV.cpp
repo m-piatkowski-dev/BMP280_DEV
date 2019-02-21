@@ -1,10 +1,11 @@
 /*
-  BMP280_DEV is an I2C/SPI compatible library for the Bosch BMP280 barometer.
+  BMP280 is an I2C/SPI compatible library for the Bosch BMP280 barometer.
 	
 	Copyright (C) Martin Lindupp 2019
 	
 	V1.0.0 -- Initial release 	
 	V1.0.1 -- Added ESP32 HSPI support and change library to unique name
+	V1.0.2 -- Modification to allow external creation of HSPI object on ESP32
 	
 	The MIT License (MIT)
 	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -32,8 +33,8 @@
 
 BMP280_DEV::BMP280_DEV() : writeMask(0xFF) { setI2CAddress(BMP280_I2C_ADDR); }	// Constructor for I2C communications																							// Constructor for I2C communications
 BMP280_DEV::BMP280_DEV(uint8_t cs) : Device(cs), writeMask(0x7F) {}			   			// Constructor for SPI communications
-#ifdef ARDUINO_ARCH_ESP32 
-BMP280_DEV::BMP280_DEV(uint8_t cs, uint8_t spiPort) : Device(cs, spiPort), writeMask(0x7F) {}
+#ifdef ARDUINO_ARCH_ESP32 																											// Constructors for SPI communications on the ESP32
+BMP280_DEV::BMP280_DEV(uint8_t cs, uint8_t spiPort, SPIClass& spiClass) : Device(cs, spiPort, spiClass), writeMask(0x7F) {}
 #endif
 ////////////////////////////////////////////////////////////////////////////////
 // BMP280_DEV Public Member Functions
