@@ -16,6 +16,7 @@ This BMP280_DEV library offers the following features:
 
 ## __Version__
 
+- Version 1.0.2 -- Modification to allow extern creation of HSPI object on ESP32
 - Version 1.0.1 -- Added ESP32 HSPI support and changed library name for Arduino compatibility
 - Version 1.0.0 -- Intial version
 
@@ -54,7 +55,8 @@ BMP280_dev bmp280(10);	// Set up SPI communications on digital pin D10
 The library also supports the ESP32 HSPI operation on pins: SCK 14, MOSI 13, MISO 27 and user defined SS (CS):
 
 ```
-BMP280_DEV bmp(21, HSPI);		// Set up HSPI port communications on the ESP32
+SPIClass SPI1(HSPI);							// Create the SPI1 HSPI object
+BMP280_DEV bmp(21, HSPI, SPI1);		// Set up HSPI port communications on the ESP32
 ```
 
 By default the I2C runs in fast mode at 400kHz and SPI at 1MHz.
