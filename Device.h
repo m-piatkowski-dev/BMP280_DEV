@@ -5,6 +5,7 @@
 	
 	V1.0.0 -- Initial release 
 	V1.0.1 -- Added ESP32 HSPI support	
+	V1.0.2 -- Modification to allow external creation of HSPI object on ESP32
 	
 	The MIT License (MIT)
 	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -46,7 +47,7 @@ class Device{
 		Device();																										// Device object for I2C operation
 		Device(uint8_t cs);																					// Device object for SPI operation
 #ifdef ARDUINO_ARCH_ESP32
-		Device(uint8_t cs, uint8_t spiPort);												// Device object for ESP32 HSPI operation
+		Device(uint8_t cs, uint8_t spiPort, SPIClass& spiClass);		// Device object for ESP32 HSPI operation with supplied SPI object
 #endif		
 		void setClock(uint32_t clockSpeed);													// Set the I2C/SPI clock speed
 	protected:
@@ -63,9 +64,7 @@ class Device{
 		SPIClass* spi;																							// Pointer to the SPI class
 #ifdef ARDUINO_ARCH_ESP32
 		uint8_t spiPort;																						// SPI port type VSPI or HSPI
-		SPIClass SPI1;																							// HSPI object SPI1
 #endif
 };
 
 #endif
-
