@@ -6,7 +6,8 @@
 
 float temperature, pressure, altitude;            // Create the temperature, pressure and altitude variables
 //BMP280_DEV bmp280(21);                            // Create BMP280_DEV object and set-up for VSPI operation, SCK 5, MOSI 18, MISO 19, SS 21
-BMP280_DEV bmp280(21, HSPI);                        // Create BMP280_DEV object and set-up for HSPI operation, SCK 14, MOSI 13, MISO 27, SS 21
+SPIClass SPI1(HSPI);                              // Create (instantiate) the SPI1 object for HSPI operation
+BMP280_DEV bmp280(21, HSPI, SPI1);                // Create BMP280_DEV object and set-up for HSPI operation, SCK 14, MOSI 13, MISO 27, SS 21
 
 void setup() 
 {
