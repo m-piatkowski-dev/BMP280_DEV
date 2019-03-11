@@ -16,7 +16,7 @@ This BMP280_DEV library offers the following features:
 
 ## __Version__
 
-- Version 1.0.3 -- Changes to library.properties file
+- Version 1.0.3 -- Change library name in the library.properties file
 - Version 1.0.2 -- Modification to allow external creation of a HSPI object on the ESP32
 - Version 1.0.1 -- Added ESP32 HSPI support and changed library name for Arduino compatibility
 - Version 1.0.0 -- Intial version
