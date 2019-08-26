@@ -7,6 +7,7 @@
 	V1.0.1 -- Added ESP32 HSPI support and change library to unique name
 	V1.0.2 -- Modification to allow external creation of HSPI object on ESP32
 	V1.0.3 -- Change library name in the library.properties file
+	V1.0.4 -- Fixed bug in BMP280_DEV::getTemp() function, thanks to Jon M.
 	
 	The MIT License (MIT)
 	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -131,7 +132,7 @@ uint8_t BMP280_DEV::getTemperature(float &temperature)							// Get the temperat
 	}
 	uint8_t data[3];                                                  // Create a data buffer
 	readBytes(BMP280_TEMP_MSB, &data[0], 3);             							// Read the temperature and pressure data
-	int32_t adcTemp = (int32_t)data[3] << 12 | (int32_t)data[4] << 4 | (int32_t)data[5] >> 4;  // Copy the temperature and pressure data into the adc variables
+	int32_t adcTemp = (int32_t)data[0] << 12 | (int32_t)data[1] << 4 | (int32_t)data[3] >> 4;  // Copy the temperature and pressure data into the adc variables
 	int32_t temp = bmp280_compensate_T_int32(adcTemp);                // Temperature compensation (function from BMP280 datasheet)
 	temperature = (float)temp / 100.0f;                               // Calculate the temperature in degrees celcius
 	return 1;
