@@ -7,7 +7,7 @@
 	V1.0.1 -- Added ESP32 HSPI support and change library to unique name
 	V1.0.2 -- Modification to allow external creation of HSPI object on ESP32
 	V1.0.3 -- Change library name in the library.properties file
-	V1.0.4 -- Fixed bug in BMP280_DEV::getTemp() function, thanks to Jon M.
+	V1.0.4 -- Fixed bug in BMP280_DEV::getTemperature() function, thanks to Jon M.
 	
 	The MIT License (MIT)
 	Permission is hereby granted, free of charge, to any person obtaining a copy
