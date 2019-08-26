@@ -132,7 +132,7 @@ uint8_t BMP280_DEV::getTemperature(float &temperature)							// Get the temperat
 	}
 	uint8_t data[3];                                                  // Create a data buffer
 	readBytes(BMP280_TEMP_MSB, &data[0], 3);             							// Read the temperature and pressure data
-	int32_t adcTemp = (int32_t)data[0] << 12 | (int32_t)data[1] << 4 | (int32_t)data[3] >> 4;  // Copy the temperature and pressure data into the adc variables
+	int32_t adcTemp = (int32_t)data[0] << 12 | (int32_t)data[1] << 4 | (int32_t)data[2] >> 4;  // Copy the temperature and pressure data into the adc variables
 	int32_t temp = bmp280_compensate_T_int32(adcTemp);                // Temperature compensation (function from BMP280 datasheet)
 	temperature = (float)temp / 100.0f;                               // Calculate the temperature in degrees celcius
 	return 1;
