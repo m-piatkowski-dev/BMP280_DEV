@@ -49,11 +49,11 @@ uint8_t BMP280_DEV::begin(Mode mode, 															// Initialise BMP280 device 
 											TimeStandby timeStandby)
 {
 	initialise();																											// Call the Device base class "initialise" function
-  reset();                                                          // Reset the BMP280 barometer
-  if (readByte(BMP280_DEVICE_ID) != DEVICE_ID)              				// Check the device ID
+	if (readByte(BMP280_DEVICE_ID) != DEVICE_ID)              				// Check the device ID
   {
     return 0;                                                     	// If the ID is incorrect return 0
   }	
+  reset();                                                          // Reset the BMP280 barometer
   readBytes(BMP280_TRIM_PARAMS, (uint8_t*)&params, sizeof(params)); // Read the trim parameters into the params structure
 	setConfigRegister(iirFilter, timeStandby); 												// Initialise the BMP280 configuration register
 	setCtrlMeasRegister(mode, presOversampling, tempOversampling);		// Initialise the BMP280 control and measurement register	
