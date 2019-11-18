@@ -204,27 +204,26 @@ void BMP280_DEV::setConfigRegister(IIRFilter iirFilter, TimeStandby timeStandby)
 
 uint8_t BMP280_DEV::checkMode()																			// Check the device mode
 {
-	static bool pending = false;
 	if (ctrl_meas.bit.mode == SLEEP_MODE)															// If in SLEEP_MODE return immediately
 	{		
-		pending = false;
+		_readoutPending = false;
 		return 0;
 	}
 	else 																															// Otherwise we're in NORMAL or FORCED mode
 	{
 		status.reg = readByte(BMP280_STATUS);														// Check the STATUS register
-		if (status.bit.measuring && !pending)														// If a measurement is taking place return immediately
+		if (status.bit.measuring && !_readoutPending)														// If a measurement is taking place return immediately
 		{							
-			pending = true;
+			_readoutPending = true;
 			return 0;																										
 		}
-		else if (!status.bit.measuring && pending)
+		else if (!status.bit.measuring && _readoutPending)
 		{					
 			if (ctrl_meas.bit.mode == FORCED_MODE)												// A measurement is ready, if we're in FORCED_MODE switch back to SLEEP_MODE
 			{		
 				ctrl_meas.bit.mode = SLEEP_MODE;	
 			}
-			pending = false;
+			_readoutPending = false;
 			return 1;
 		}		
 	}
