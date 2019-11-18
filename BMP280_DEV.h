@@ -196,6 +196,7 @@ class BMP280_DEV : public Device {															// Derive the BMP280_DEV class 
 		int32_t t_fine;																							// Bosch t_fine variable
 		int32_t bmp280_compensate_T_int32(int32_t adc_T);						// Bosch temperature compensation function
 		uint32_t bmp280_compensate_P_int64(int32_t adc_P);					// Bosch pressure compensation function
+	  bool _readoutPending;
 };
 
 #endif
