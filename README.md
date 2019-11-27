@@ -16,6 +16,7 @@ This BMP280_DEV library offers the following features:
 
 ## __Version__
 
+- Version 1.0.6 -- Merged multiple instances and initialisation pull requests by sensslen
 - Version 1.0.5 -- Fixed bug in BMP280_DEV::getTemperature() function, thanks to Jon M.
 - Version 1.0.3 -- Change library name in the library.properties file
 - Version 1.0.2 -- Modification to allow external creation of a HSPI object on the ESP32
