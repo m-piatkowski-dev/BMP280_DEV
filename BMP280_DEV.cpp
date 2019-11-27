@@ -63,7 +63,7 @@ uint8_t BMP280_DEV::begin(Mode mode, 															// Initialise BMP280 device 
 uint8_t BMP280_DEV::begin(Mode mode, uint8_t addr)									// Initialise BMP280 with default settings, but selected mode and
 {																																		// I2C address
 	setI2CAddress(addr);
-	begin(mode);
+	return begin(mode);
 }
 
 uint8_t BMP280_DEV::begin(Mode mode)																// Initialise BMP280 with default settings and selected mode
